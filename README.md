@@ -34,7 +34,7 @@ Running on http://127.0.0.1:5000
 .\.venv\Scripts\python.exe app.py
 ```
 
-## 給學生的觀察重點
+## 觀察重點
 
 1. 在 `templates/index.html` 找到表單欄位。
 2. 在 `static/app.js` 找到 `fetch("/api/tickets")`：前端在這裡呼叫後端 API。
