@@ -93,6 +93,9 @@ def create_ticket():
 
 @app.patch("/api/tickets/<ticket_id>")
 def update_ticket(ticket_id):
+    if not session.get("is_admin"):
+        return jsonify({"message": "未授權：請先登入管理員帳號"}), 401
+
     data = request.get_json(silent=True) or {}
     status = str(data.get("status", "")).strip()
     allowed_statuses = {"待處理", "處理中", "已完成"}
