@@ -8,7 +8,29 @@
 - Python 3.13.x
 - 瀏覽器（Edge、Chrome 皆可）
 
-## 第一次啟動
+## 啟動方式
+
+### 方法一：使用 uv（推薦）
+
+專案已配置 `pyproject.toml` 與 `.python-version`（指定 Python 3.13）。
+
+若已安裝 `uv`，在專案資料夾直接執行：
+
+```powershell
+uv run app.py
+```
+
+`uv` 會自動安裝 Python 3.13、建立虛擬環境、同步依賴並啟動 Flask 伺服器。
+
+若需要手動同步依賴或新增套件：
+```powershell
+uv sync
+uv add <套件名稱>
+```
+
+---
+
+### 方法二：傳統 Python venv
 
 在此專案資料夾開啟 PowerShell，依序執行：
 
@@ -18,21 +40,21 @@ python -m venv .venv
 .\.venv\Scripts\python.exe app.py
 ```
 
-看到下列訊息後，以瀏覽器開啟 <http://127.0.0.1:5000>：
-
-```text
-Running on http://127.0.0.1:5000
-```
-
-按 `Ctrl + C` 可停止伺服器。
-
-管理後台位址為 <http://127.0.0.1:5000/admin>。可在此查看案件並更新狀態。
-
-## 第二次以後啟動
+第二次以後啟動：
 
 ```powershell
 .\.venv\Scripts\python.exe app.py
 ```
+
+---
+
+## 存取與操作
+
+啟動後，以瀏覽器開啟：
+- **前台報修頁面**：<http://127.0.0.1:5000>
+- **管理後台位址**：<http://127.0.0.1:5000/admin>（可在此查看案件並更新狀態）
+
+按 `Ctrl + C` 可停止伺服器。
 
 ## 觀察重點
 

@@ -1,0 +1,7 @@
+[project]
+name = "115-1-mis-course"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "flask==3.1.3",
+]
