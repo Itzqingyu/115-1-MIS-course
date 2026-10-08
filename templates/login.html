@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>管理員登入 - 校園設備報修系統</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+
+<body>
+  <main class="container">
+    <header>
+      <div class="topbar">
+        <p class="eyebrow">MIS 前後端範例</p>
+        <a class="admin-link" href="/">回報修頁面</a>
+      </div>
+      <h1>管理員身分驗證</h1>
+      <p>進入管理後台前，請先輸入管理員帳號與密碼進行驗證。</p>
+    </header>
+
+    <section class="panel" aria-labelledby="login-title">
+      <h2 id="login-title">管理員登入</h2>
+      <form method="POST" action="/login">
+        <label>
+          管理員帳號
+          <input name="username" type="text" placeholder="請輸入管理員帳號" required autofocus />
+        </label>
+        <label>
+          管理員密碼
+          <input name="password" type="password" placeholder="請輸入密碼" required />
+        </label>
+        <button type="submit">登入管理後台</button>
+      </form>
+      {% if error %}
+      <p class="message error" role="alert">{{ error }}</p>
+      {% endif %}
+      <p style="margin-top: 16px; font-size: 0.88rem; color: #5f6368;">
+        僅供演示：管理員帳號與密碼皆為 <code>admin</code>
+      </p>
+    </section>
+  </main>
+</body>
+
+</html>

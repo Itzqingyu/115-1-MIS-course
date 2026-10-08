@@ -1,8 +1,10 @@
 from datetime import datetime
 
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, redirect, render_template, request, session, url_for
 
 app = Flask(__name__)
+# 演示用密鑰：用於簽章 Session Cookie
+app.secret_key = "mis-secret-key-for-demo"
 
 # 教學用：資料只暫存在記憶體。重新啟動程式後會清空。
 tickets = []
@@ -13,8 +15,31 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "").strip()
+        if username == "admin" and password == "admin":
+            session["is_admin"] = True
+            return redirect(url_for("admin"))
+        return render_template("login.html", error="帳號或密碼錯誤，請重新輸入。")
+
+    if session.get("is_admin"):
+        return redirect(url_for("admin"))
+    return render_template("login.html")
+
+
+@app.get("/logout")
+def logout():
+    session.pop("is_admin", None)
+    return redirect(url_for("login"))
+
+
 @app.get("/admin")
 def admin():
+    if not session.get("is_admin"):
+        return redirect(url_for("login"))
     return render_template("admin.html")
 
 
