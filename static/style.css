@@ -49,6 +49,12 @@ button { background: #2456a6; border: 0; color: #fff; cursor: pointer; font-weig
 button:hover { background: #174382; }
 
 button.secondary { background: #eaf0fa; color: #174382; }
+button.secondary:hover { background: #dce7f7; }
+
+button.danger { background: #d92d20; color: #fff; }
+button.danger:hover { background: #b42318; }
+
+.action-buttons { display: flex; gap: 8px; align-items: center; }
 
 .section-heading { align-items: center; display: flex; justify-content: space-between; gap: 16px; }
 

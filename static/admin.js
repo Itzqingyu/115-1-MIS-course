@@ -48,11 +48,23 @@ function renderTickets(tickets) {
     row.appendChild(statusCell);
 
     const actionCell = document.createElement("td");
+    const buttonGroup = document.createElement("div");
+    buttonGroup.className = "action-buttons";
+
     const saveButton = document.createElement("button");
     saveButton.type = "button";
     saveButton.textContent = "儲存狀態";
     saveButton.addEventListener("click", () => updateStatus(ticket.id, select.value));
-    actionCell.appendChild(saveButton);
+    buttonGroup.appendChild(saveButton);
+
+    const deleteButton = document.createElement("button");
+    deleteButton.type = "button";
+    deleteButton.className = "danger";
+    deleteButton.textContent = "刪除";
+    deleteButton.addEventListener("click", () => deleteTicket(ticket.id));
+    buttonGroup.appendChild(deleteButton);
+
+    actionCell.appendChild(buttonGroup);
     row.appendChild(actionCell);
     tableBody.appendChild(row);
   }
@@ -77,6 +89,24 @@ async function updateStatus(ticketId, status) {
     });
     const result = await response.json();
     if (!response.ok) throw new Error(result.message || "更新狀態失敗");
+    showMessage(result.message);
+    await loadTickets();
+  } catch (error) {
+    showMessage(error.message, true);
+  }
+}
+
+async function deleteTicket(ticketId) {
+  if (!confirm(`確定要刪除案件「${ticketId}」嗎？`)) {
+    return;
+  }
+
+  try {
+    const response = await fetch(`/api/tickets/${ticketId}`, {
+      method: "DELETE",
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.message || "刪除案件失敗");
     showMessage(result.message);
     await loadTickets();
   } catch (error) {

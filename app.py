@@ -111,5 +111,18 @@ def update_ticket(ticket_id):
     return jsonify({"message": f"{ticket_id} 已更新為「{status}」", "ticket": ticket})
 
 
+@app.delete("/api/tickets/<ticket_id>")
+def delete_ticket(ticket_id):
+    if not session.get("is_admin"):
+        return jsonify({"message": "未授權：請先登入管理員帳號"}), 401
+
+    ticket = next((item for item in tickets if item["id"] == ticket_id), None)
+    if ticket is None:
+        return jsonify({"message": "找不到指定案件"}), 404
+
+    tickets.remove(ticket)
+    return jsonify({"message": f"案件 {ticket_id} 已成功刪除"})
+
+
 if __name__ == "__main__":
     app.run(debug=True)
